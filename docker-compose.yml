@@ -1,0 +1,24 @@
+version: "3.0"
+
+services:
+  shiny:
+    container_name: shiny
+    image: rocker/shiny:${SHINY_TAG:-4.0.2}
+    restart: always
+    # Setting this to something other than 'root' will cause shiny apps not to
+    # run on the localhost:80 "Welcome to Shiny" diagnostics page mentioned
+    # below.
+    user: ${SHINY_USER:-root}
+    # Uncomment the lines below to disable application logs STDOUT output
+    # environment:
+    #   - APPLICATION_LOGS_TO_STDOUT=false
+    ports:
+      - ${SHINY_PORT:-3838}:3838
+    volumes:
+      - './shiny_logs:/var/log/shiny-server'
+      # Comment the line below out for initial testing. With it commented out,
+      # going to localhost:80 in one's web browser will show a "Welcome to
+      # Shiny Server!" diagnostics page.
+      #- './apps:/srv/shiny-server'
+      - './apps/progeny:/srv/shiny-server/progeny'
+      - './apps/dorothea:/srv/shiny-server/dorothea'
