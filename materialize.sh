@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 WORKDIR="$(dirname "$0")"
 
 case "${WORKDIR}" in
@@ -16,5 +18,14 @@ esac
 
 cd "${WORKDIR}/apps"
 
-git clone -b BSC_progeny https://github.com/saezlab/ShinyFUNKI.git progeny
-git clone -b BSC_FUNKI https://github.com/saezlab/ShinyFUNKI.git dorothea
+if [ -d progeny ] ; then
+	( cd progeny && git pull )
+else
+	git clone --single-branch -b BSC_progeny https://github.com/saezlab/ShinyFUNKI.git progeny
+fi
+
+if [ -d dorothea ] ; then
+	( cd dorothea && git pull )
+else
+	git clone --single-branch -b BSC_FUNKI https://github.com/saezlab/ShinyFUNKI.git dorothea
+fi
