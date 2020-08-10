@@ -10,7 +10,8 @@ services:
     # below.
     user: ${SHINY_USER:-root}
     # Uncomment the lines below to disable application logs STDOUT output
-    # environment:
+    environment:
+      - TZ=Europe/Madrid
     #   - APPLICATION_LOGS_TO_STDOUT=false
     ports:
       - ${SHINY_PORT:-3838}:3838
@@ -22,3 +23,4 @@ services:
       #- './apps:/srv/shiny-server'
       - './apps/progeny:/srv/shiny-server/progeny'
       - './apps/dorothea:/srv/shiny-server/dorothea'
+      - './shiny-server.conf:/etc/shiny-server/shiny-server.conf:ro'
