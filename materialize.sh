@@ -27,5 +27,5 @@ fi
 if [ -d dorothea ] ; then
 	( cd dorothea && git pull )
 else
-	git clone --single-branch -b BSC_FUNKI https://github.com/saezlab/ShinyFUNKI.git dorothea
+	git clone --single-branch -b BSC_dorothea https://github.com/saezlab/ShinyFUNKI.git dorothea
 fi
