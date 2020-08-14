@@ -23,9 +23,11 @@ if [ -d progeny ] ; then
 else
 	git clone --single-branch -b BSC_progeny https://github.com/saezlab/ShinyFUNKI.git progeny
 fi
+chmod -R o+w progeny
 
 if [ -d dorothea ] ; then
 	( cd dorothea && git pull )
 else
 	git clone --single-branch -b BSC_dorothea https://github.com/saezlab/ShinyFUNKI.git dorothea
 fi
+chmod -R o+w dorothea

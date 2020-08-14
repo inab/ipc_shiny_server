@@ -21,6 +21,41 @@ services:
       # going to localhost:80 in one's web browser will show a "Welcome to
       # Shiny Server!" diagnostics page.
       #- './apps:/srv/shiny-server'
-      - './apps/progeny:/srv/shiny-server/progeny'
-      - './apps/dorothea:/srv/shiny-server/dorothea'
       - './shiny-server.conf:/etc/shiny-server/shiny-server.conf:ro'
+      - './apps/progeny:/srv/shiny-server/progeny'
+      - 'progeny_libs:/srv/shiny-server/progeny/R/libs'
+      - 'progeny_renv_libs:/srv/shiny-server/progeny/renv/library'
+      - 'progeny_renv_staging:/srv/shiny-server/progeny/renv/staging'
+      - './apps/dorothea:/srv/shiny-server/dorothea'
+      - 'dorothea_libs:/srv/shiny-server/dorothea/R/libs'
+      - 'dorothea_renv_libs:/srv/shiny-server/dorothea/renv/library'
+      - 'dorothea_renv_staging:/srv/shiny-server/dorothea/renv/staging'
+    depends_on:
+      - shiny_pre
+  
+  shiny_pre:
+    image: rocker/shiny:${SHINY_TAG:-4.0.2}
+    environment:
+      - TZ=Europe/Madrid
+    volumes:
+      - 'progeny_libs:/srv/shiny-server/progeny/R/libs'
+      - 'progeny_renv_libs:/srv/shiny-server/progeny/renv/library'
+      - 'progeny_renv_staging:/srv/shiny-server/progeny/renv/staging'
+      - 'dorothea_libs:/srv/shiny-server/dorothea/R/libs'
+      - 'dorothea_renv_libs:/srv/shiny-server/dorothea/renv/library'
+      - 'dorothea_renv_staging:/srv/shiny-server/dorothea/renv/staging'
+    command: chown -R shiny
+      /srv/shiny-server/progeny/R/libs
+      /srv/shiny-server/progeny/renv/library
+      /srv/shiny-server/progeny/renv/staging
+      /srv/shiny-server/dorothea/R/libs
+      /srv/shiny-server/dorothea/renv/library
+      /srv/shiny-server/dorothea/renv/staging
+  
+volumes:
+  dorothea_libs:
+  dorothea_renv_libs:
+  dorothea_renv_staging:
+  progeny_libs:
+  progeny_renv_libs:
+  progeny_renv_staging:
