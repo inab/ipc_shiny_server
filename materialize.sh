@@ -23,6 +23,7 @@ if [ -d progeny ] ; then
 else
 	git clone --single-branch -b BSC_progeny https://github.com/saezlab/ShinyFUNKI.git progeny
 fi
+mkdir -p progeny/renv/library progeny/renv/staging
 chmod -R o+w progeny
 
 if [ -d dorothea ] ; then
@@ -30,4 +31,5 @@ if [ -d dorothea ] ; then
 else
 	git clone --single-branch -b BSC_dorothea https://github.com/saezlab/ShinyFUNKI.git dorothea
 fi
+mkdir -p dorothea/renv/library dorothea/renv/staging
 chmod -R o+w dorothea
