@@ -5,10 +5,6 @@ services:
     container_name: shiny
     image: rocker/shiny:${SHINY_TAG:-4.0.2}
     restart: always
-    # Setting this to something other than 'root' will cause shiny apps not to
-    # run on the localhost:80 "Welcome to Shiny" diagnostics page mentioned
-    # below.
-    user: ${SHINY_USER:-root}
     # Uncomment the lines below to disable application logs STDOUT output
     environment:
       - TZ=Europe/Madrid
