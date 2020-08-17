@@ -18,6 +18,7 @@ services:
       # Shiny Server!" diagnostics page.
       #- './apps:/srv/shiny-server'
       - './shiny-server.conf:/etc/shiny-server/shiny-server.conf:ro'
+      - './s6-deps-run:/etc/cont-init.d/s6-deps-run:ro'
       - './apps/progeny:/srv/shiny-server/progeny'
       - 'progeny_renv_libs:/srv/shiny-server/progeny/renv/library'
       - 'progeny_renv_staging:/srv/shiny-server/progeny/renv/staging'
